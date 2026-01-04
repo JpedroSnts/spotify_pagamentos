@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Dashboard - Pagamentos Spotify</title>
+</head>
+<body>
+    <div class="container">
+        <h1>💳 Dashboard de Pagamentos Spotify</h1>
+        
+        <div id="loading" class="loading">Carregando...</div>
+        <div id="users-grid" class="users-grid"></div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title"></h2>
+                <button class="close-btn" onclick="closeModal()">✕ Fechar</button>
+            </div>
+
+            <div class="payments-section">
+                <h3 class="section-title">⏳ Pagamentos Pendentes</h3>
+                <div id="pending-payments"></div>
+            </div>
+
+            <div class="payments-section">
+                <h3 class="section-title">✅ Último Pagamento Realizado</h3>
+                <div id="last-paid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="qrcode-modal">
+        <div class="qrcode-content">
+            <h2 class="qrcode-title">QR Code PIX</h2>
+            <div class="qrcode-image">
+                <img id="qrcode-img" src="" alt="QR Code">
+            </div>
+            <div class="pix-code-section">
+                <div class="pix-code-label">PIX Copia e Cola:</div>
+                <div class="pix-code-box" id="pix-code"></div>
+                <button class="copy-btn" onclick="copyPixCode(event)">📋 Copiar Código</button>
+                <button class="close-qr-btn" onclick="closeQRCodeModal()">✕ Fechar</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="/script.js">
+    </script>
+</body>
+</html>
