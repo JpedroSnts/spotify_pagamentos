@@ -8,7 +8,7 @@ async function gerarPagamentoParaTodos() {
 
     const dt_cobranca = new Date();
     const pagamento = {
-        amount: 1.00,
+        amount: parseFloat(process.env.VALOR_MENSAL),
         dt_cobranca,
         dt_pagamento: null,
         status: "pendente",
