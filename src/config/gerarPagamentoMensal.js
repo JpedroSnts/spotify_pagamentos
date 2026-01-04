@@ -148,7 +148,7 @@ async function gerarPagamentoParaTodos() {
 }
 
 export async function inicializarGeracaoMensal() {
-    cron.schedule("0 12 29 * *", async () => {
+    cron.schedule("0 12 28 * *", async () => {
         try {
             await gerarPagamentoParaTodos();
         } catch (err) {
