@@ -85,16 +85,17 @@ async function showUserPayments(userId, userName) {
         }
 
         const lastPaidDiv = document.getElementById("last-paid");
-        if (!data.lastPaid) {
+        if (!data.previousPayments || data.previousPayments.length === 0) {
             lastPaidDiv.innerHTML =
                 '<div class="no-payments">Nenhum pagamento realizado ainda</div>';
         } else {
-            const payment = data.lastPaid;
-            const date = payment.dt_pagamento?.toDate
-                ? payment.dt_pagamento.toDate()
-                : new Date(payment.dt_pagamento._seconds * 1000);
+            lastPaidDiv.innerHTML = data.previousPayments
+                .map((payment) => {
+                    const date = payment.dt_pagamento?.toDate
+                        ? payment.dt_pagamento.toDate()
+                        : new Date(payment.dt_pagamento._seconds * 1000);
 
-            lastPaidDiv.innerHTML = `
+                    return `
                         <div class="payment-item">
                             <div class="payment-info">
                                 <div class="payment-date">
@@ -116,6 +117,8 @@ async function showUserPayments(userId, userName) {
                             </div>
                         </div>
                     `;
+                })
+                .join("");
         }
 
         document.getElementById("modal").classList.add("active");

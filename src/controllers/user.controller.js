@@ -33,11 +33,11 @@ export async function getUserPayments(req, res) {
         
         const pendingPayments = payments.filter(p => p.status === "pendente");
         const paidPayments = payments.filter(p => p.status === "pago");
-        const lastPaid = paidPayments.length > 0 ? paidPayments[0] : null;
-
+        const previousPayments = paidPayments.slice(0, 6);
+        
         res.json({
             pending: pendingPayments,
-            lastPaid: lastPaid
+            previousPayments: previousPayments
         });
     } catch (error) {
         console.error("Erro ao buscar pagamentos:", error);
