@@ -5,7 +5,7 @@ import path from "path";
 import { fileURLToPath } from 'url';
 import webhookRoutes from "./routes/webhook.routes.js";
 import userRoutes from "./routes/user.routes.js";
-import { inicializarGeracaoMensal } from "./config/gerarPagamentoMensal.js";
+import { gerarPagamentoParaTodos } from "./config/gerarPagamentoMensal.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -42,8 +42,6 @@ app.listen(PORT, () => {
     console.log(`🚀 Servidor rodando na porta ${PORT}`);
     console.log(`📍 ${process.env.APP_URL}:${PORT}`);
     console.log(`🔔 Webhook URL: ${process.env.APP_URL}/api/webhook`);
-    inicializarGeracaoMensal();
-
 
     if (!process.env.MERCADOPAGO_ACCESS_TOKEN) {
         console.warn(

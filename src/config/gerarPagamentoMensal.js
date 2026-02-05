@@ -1,9 +1,8 @@
-import cron from "node-cron";
 import { getAllUsers, insertPayment } from "./firebase.js";
 import { createPixPayment } from "../services/mercadopago.service.js";
 import { sendEmail } from "./email.js";
 
-async function gerarPagamentoParaTodos() {
+export async function gerarPagamentoParaTodos() {
     const users = await getAllUsers();
 
     const dt_cobranca = new Date();
@@ -145,16 +144,4 @@ async function gerarPagamentoParaTodos() {
             }
         }
     }
-}
-
-export async function inicializarGeracaoMensal() {
-    cron.schedule("0 12 28 * *", async () => {
-        try {
-            await gerarPagamentoParaTodos();
-        } catch (err) {
-            console.error("❌ Erro ao gerar pagamentos:", err);
-        }
-    }, {
-        timezone: "America/Sao_Paulo"
-    });
 }
