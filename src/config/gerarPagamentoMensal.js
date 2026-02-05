@@ -6,17 +6,20 @@ export async function gerarPagamentoParaTodos() {
     const users = await getAllUsers();
 
     const dt_cobranca = new Date();
-    const pagamento = {
-        amount: parseFloat(process.env.VALOR_MENSAL),
-        dt_cobranca,
-        dt_pagamento: null,
-        status: "pendente",
-        created_at: new Date(),
-    };
+    const valor_mensal = parseFloat(process.env.VALOR_MENSAL);
     
     for (const user of users) {
         if (user.ativo) {
             try {
+                // Criar um novo objeto de pagamento para cada usuário
+                const pagamento = {
+                    amount: valor_mensal,
+                    dt_cobranca,
+                    dt_pagamento: null,
+                    status: "pendente",
+                    created_at: new Date(),
+                };
+
                 let payment = null;
                 if (!user.vitalicio) {
                     payment = await createPixPayment({
