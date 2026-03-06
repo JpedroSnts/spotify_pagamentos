@@ -8,8 +8,8 @@ router.get("/users", listUsers);
 router.get("/users/:userId/payments", getUserPayments);
 router.get("/payment/:mercadoPagoId/qrcode", getPaymentQRCode);
 
-// Rota para Vercel Crons
-router.post("/gerar-pagamentos", async (req, res) => {
+// Rota para Vercel Crons (GET obrigatório - Vercel sempre usa GET)
+router.get("/gerar-pagamentos", async (req, res) => {
     try {
         await gerarPagamentoParaTodos();
         res.json({ success: true, message: "Pagamentos gerados com sucesso" });
