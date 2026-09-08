@@ -108,3 +108,38 @@ export async function updatePaymentByMercadoPagoId(mercadoPagoId, data) {
         ...data,
     };
 }
+
+export async function getPendingPayments() {
+    const snapshot = await db
+        .collectionGroup("pagamentos")
+        .where("status", "==", "pendente")
+        .get();
+
+    return snapshot.docs.map((doc) => ({
+        id_pagamento: doc.id,
+        id_usuario: doc.ref.parent.parent.id,
+        ...doc.data(),
+    }));
+}
+
+export async function deletePayment(userId, paymentId) {
+    await db
+        .collection("usuarios")
+        .doc(userId)
+        .collection("pagamentos")
+        .doc(paymentId)
+        .delete();
+}
+
+export async function getUserById(userId) {
+    const doc = await db.collection("usuarios").doc(userId).get();
+
+    if (!doc.exists) {
+        return null;
+    }
+
+    return {
+        id_usuario: doc.id,
+        ...doc.data(),
+    };
+}

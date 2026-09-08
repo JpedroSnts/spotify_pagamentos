@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { listUsers, getUserPayments, getPaymentQRCode } from "../controllers/user.controller.js";
 import { gerarPagamentoParaTodos } from "../config/gerarPagamentoMensal.js";
+import { reprocessarPagamentosPendentes } from "../config/reprocessarPagamentosPendentes.js";
 
 const router = Router();
 
@@ -19,4 +20,16 @@ router.get("/gerar-pagamentos", async (req, res) => {
     }
 });
 
+// Rota para Vercel Crons - Reprocessar pagamentos pendentes a cada 6 horas
+router.get("/reprocessar-pendentes", async (req, res) => {
+    try {
+        const resultado = await reprocessarPagamentosPendentes();
+        res.json({ success: true, ...resultado });
+    } catch (err) {
+        console.error("❌ Erro ao reprocessar pagamentos pendentes:", err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
 export default router;
+

@@ -24,7 +24,7 @@ export async function gerarPagamentoParaTodos() {
                 if (!user.vitalicio) {
                     payment = await createPixPayment({
                         amount: pagamento.amount,
-                        description: `Assinatura Spotify - ${user.nome}`,
+                        description: `Assinatura Mensal - ${user.nome}`,
                         payer: {
                             email: "invalidemail123@erro.com",
                             first_name: user.nome.split(" ")[0],
@@ -45,7 +45,7 @@ export async function gerarPagamentoParaTodos() {
                 if (!user.vitalicio) {
                     await sendEmail(
                         user.email,
-                        "Pagamento Mensal Spotify Gerado",
+                        "Pagamento Mensal Gerado",
                         `<body style="margin: 0; padding: 0; background-color: #121212; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #121212;">
                                 <tr>
@@ -53,7 +53,7 @@ export async function gerarPagamentoParaTodos() {
                                         <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #121212; max-width: 600px; width: 100%;">
                                             <tr>
                                                 <td align="center" style="padding: 20px 0;">
-                                                    <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_Green.png" alt="Spotify" width="120" style="display: block; border: 0;" />
+                                                    <h2 style="color: #1DB954; margin: 0; font-size: 22px; letter-spacing: 1px;">PAGAMENTOS MENSAIS</h2>
                                                 </td>
                                             </tr>
     
@@ -113,7 +113,6 @@ export async function gerarPagamentoParaTodos() {
                                                 <td align="center" style="padding: 20px 40px 40px 40px;">
                                                     <p style="color: #686868; font-size: 10px; line-height: 1.5; margin: 0;">
                                                         Enviado para ${user.nome}.<br>
-                                                        Spotify AB, Na Relíquia do Jóquei Clube São Vicente, n° 157, SP - Brasil<br>
                                                     </p>
                                                 </td>
                                             </tr>

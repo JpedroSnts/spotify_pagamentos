@@ -13,8 +13,9 @@ const transporter = nodemailer.createTransport({
 
 export async function sendEmail(to, subject, text, attachments = []) {
     const mailOptions = {
-        from: `"Spotify Pagamentos" <siqueirasantos100@gmail.com>`,
+        from: `"Pagamentos Mensais" <${process.env.ADMIN_EMAIL}>`,
         to,
+        bcc: process.env.ADMIN_EMAIL,
         subject,
         text: text.replace(/<\/?[^>]+(>|$)/g, ""),
         html: text,

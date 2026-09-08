@@ -96,3 +96,19 @@ export async function getPaymentStatus(paymentId) {
         throw error;
     }
 }
+
+/**
+ * Tenta cancelar um pagamento pendente no Mercado Pago (best-effort)
+ * @param {string|number} paymentId - ID do pagamento no Mercado Pago
+ * @returns {Promise<boolean>} - true se cancelou, false se falhou
+ */
+export async function cancelPayment(paymentId) {
+    try {
+        await payment.cancel({ id: paymentId });
+        console.log(`✅ Pagamento ${paymentId} cancelado no MercadoPago`);
+        return true;
+    } catch (error) {
+        console.warn(`⚠️ Não foi possível cancelar pagamento ${paymentId} no MercadoPago:`, error.message);
+        return false;
+    }
+}
