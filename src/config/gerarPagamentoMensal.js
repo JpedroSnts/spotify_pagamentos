@@ -10,9 +10,10 @@ export async function gerarPagamentoParaTodos() {
     
     for (const user of users) {
         if (user.ativo) {
+            let pagamento = null;
             try {
                 // Criar um novo objeto de pagamento para cada usuário
-                const pagamento = {
+                pagamento = {
                     amount: valor_mensal,
                     dt_cobranca,
                     dt_pagamento: null,
@@ -135,14 +136,18 @@ export async function gerarPagamentoParaTodos() {
                 }
             } catch (err) {
                 console.error(`❌ Erro ao gerar pagamento para ${user.nome}:`, err);
-                sendEmail(
-                    process.env.ADMIN_EMAIL,
-                    `Erro ao gerar pagamento para ${user.nome}`,
-                    `<p>Ocorreu um erro ao gerar o pagamento mensal para o usuário ${user.nome} (${user.email}).</p>
-                    ${pagamento.id_mercadopago ? `<strong>Id pagamento: ${pagamento.id_mercadopago}</strong>` : ''}
-                    <pre>${err.message}</pre>
-                    `
-                );
+                try {
+                    await sendEmail(
+                        process.env.ADMIN_EMAIL,
+                        `Erro ao gerar pagamento para ${user.nome}`,
+                        `<p>Ocorreu um erro ao gerar o pagamento mensal para o usuário ${user.nome} (${user.email}).</p>
+                        ${pagamento?.id_mercadopago ? `<strong>Id pagamento: ${pagamento.id_mercadopago}</strong>` : ''}
+                        <pre>${err.message}</pre>
+                        `
+                    );
+                } catch (emailErr) {
+                    console.error(`❌ Erro ao enviar email de notificação de erro para admin:`, emailErr);
+                }
             }
         }
     }
