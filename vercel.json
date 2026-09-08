@@ -16,10 +16,6 @@
     {
       "path": "/api/gerar-pagamentos",
       "schedule": "0 12 28 * *"
-    },
-    {
-      "path": "/api/reprocessar-pendentes",
-      "schedule": "0 0 * * *"
     }
   ]
 }
