@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 
 export async function sendEmail(to, subject, text, attachments = []) {
     const mailOptions = {
-        from: `"Pagamentos Mensais" <${process.env.ADMIN_EMAIL}>`,
+        from: `"Pagamentos Mensais" <siqueirasantos100@hotmail.com>`,
         to,
         bcc: process.env.ADMIN_EMAIL,
         subject,
